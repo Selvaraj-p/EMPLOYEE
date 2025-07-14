@@ -8,12 +8,13 @@ const Dashboard = () => {
   const [sortBy, setSortBy] = useState('');
   const [employees] = useState(employeesData);
 
+  // 🔽 Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
-    setCurrentPage(1);
+    setCurrentPage(1); // reset to first page on new search
   };
 
   const handlePageSizeChange = (e) => {
@@ -23,7 +24,7 @@ const Dashboard = () => {
 
   const filteredEmployees = employees
     .filter(emp =>
-      \`\${emp.firstName} \${emp.lastName}\`.toLowerCase().includes(search.toLowerCase()) ||
+      `${emp.firstName} ${emp.lastName}`.toLowerCase().includes(search.toLowerCase()) ||
       emp.email.toLowerCase().includes(search.toLowerCase())
     )
     .filter(emp =>
@@ -35,6 +36,7 @@ const Dashboard = () => {
       return a[sortBy].localeCompare(b[sortBy]);
     });
 
+  // 🔽 Pagination calculation
   const totalPages = Math.ceil(filteredEmployees.length / pageSize);
   const paginatedEmployees = filteredEmployees.slice(
     (currentPage - 1) * pageSize,
@@ -45,6 +47,7 @@ const Dashboard = () => {
     <div className="p-4 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Employee Directory</h1>
 
+      {/* Search Bar */}
       <input
         type="text"
         placeholder="Search by name or email"
@@ -53,6 +56,7 @@ const Dashboard = () => {
         className="w-full p-2 border rounded mb-4"
       />
 
+      {/* Filter and Sort */}
       <div className="flex flex-wrap gap-4 mb-4">
         <select onChange={(e) => setFilter({ ...filter, department: e.target.value })} className="p-2 border rounded">
           <option value="">All Departments</option>
@@ -69,6 +73,7 @@ const Dashboard = () => {
           <option value="firstName">First Name</option>
           <option value="department">Department</option>
         </select>
+        {/* 🔽 Page size */}
         <select onChange={handlePageSizeChange} value={pageSize} className="p-2 border rounded">
           <option value="10">10 per page</option>
           <option value="25">25 per page</option>
@@ -77,12 +82,14 @@ const Dashboard = () => {
         </select>
       </div>
 
+      {/* Employee Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         {paginatedEmployees.map(emp => (
           <EmployeeCard key={emp.id} employee={emp} />
         ))}
       </div>
 
+      {/* 🔽 Pagination Controls */}
       <div className="flex items-center justify-between mt-4">
         <button
           onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
@@ -91,7 +98,9 @@ const Dashboard = () => {
         >
           Previous
         </button>
-        <p className="text-sm">Page {currentPage} of {totalPages}</p>
+        <p className="text-sm">
+          Page {currentPage} of {totalPages}
+        </p>
         <button
           onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
           disabled={currentPage === totalPages}
