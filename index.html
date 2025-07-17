@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Directory</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-actions">
+        <h1>Employee Directory</h1>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search by name or email..."
+        />
+        <button id="filterToggleBtn">Filters</button>
+      </div>
+
+      <div id="filterSidebar" class="filter-sidebar hidden">
+        <h3>Filter Employees</h3>
+
+        <div class="filter-group">
+          <label for="filterName">First Name</label>
+          <input type="text" id="filterName" placeholder="e.g. John" />
+        </div>
+
+        <div class="filter-group">
+          <label for="filterDepartment">Department</label>
+          <input type="text" id="filterDepartment" placeholder="e.g. HR" />
+        </div>
+
+        <div class="filter-group">
+          <label for="filterRole">Role</label>
+          <input type="text" id="filterRole" placeholder="e.g. Developer" />
+        </div>
+
+        <button id="applyFilters">Apply</button>
+        <button id="clearFilters">Clear</button>
+      </div>
+    </header>
+
+    <div class="filter-wrapper">
+      <div class="filter-container">
+        <div class="sortBy">
+          <label for="sortBy">Sort by:</label>
+          <select id="sortBy">
+            <option value="">None</option>
+            <option value="name-asc">Name (A–Z)</option>
+            <option value="name-desc">Name (Z–A)</option>
+            <option value="department-asc">Department (A–Z)</option>
+            <option value="department-desc">Department (Z–A)</option>
+          </select>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination-controls">
+          <label for="entriesPerPage">Show:</label>
+          <select id="entriesPerPage">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+
+          <div id="paginationButtons"></div>
+        </div>
+      </div>
+
+      <!-- Add Employee Button -->
+      <div class="add-employee-wrapper">
+        <a href="form.html" class="add-btn">+ Add Employee</a>
+      </div>
+    </div>
+
+    <!-- Employee Cards Section -->
+    <main id="employeeList" class="employee-list">
+      <!-- Cards will be dynamically inserted here via JS -->
+    </main>
+
+    <footer class="app-footer">
+      &copy; 2025 Employee Directory App. All rights reserved.
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
